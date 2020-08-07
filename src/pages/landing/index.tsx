@@ -13,8 +13,8 @@ import styles from './styles'
 const Landing = () => {
 	const { navigate } = useNavigation()
 
-	const handleNavigateToTeacherListPage = () => {
-		navigate('TeacherList')
+	const handleNavigateToStudyTabsPage = () => {
+		navigate('StudyTabs')
 	}
 	
 	const handleNavigateToGiveClassesPage = () => {
@@ -33,7 +33,7 @@ const Landing = () => {
 			<View style={styles.buttonsContainer}>
 				<RectButton
 					style={[styles.button, styles.buttonPrimary]}
-					onPress={handleNavigateToTeacherListPage}
+					onPress={handleNavigateToStudyTabsPage}
 				>
 					<Image source={studyIcon} />
 
