@@ -53,7 +53,7 @@ const topBarOptions: BottomTabBarOptions = {
   inactiveBackgroundColor: '#FAFCFC',
   activeBackgroundColor: '#EBEBF5',
   inactiveTintColor: '#C1BCCC',
-  activeTintColor: '#32264D'
+  activeTintColor: '#7257E5'
 }
 
 export default StudyTabs
