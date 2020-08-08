@@ -13,6 +13,49 @@ const styles = StyleSheet.create({
   teacherListScroll: {
     paddingHorizontal: 16,
     paddingBottom: 24
+  },
+
+  searchForm: {
+    marginBottom: 24,
+  },
+
+  label: {
+    color: '#D4E2FF',
+    fontFamily: 'Poppins_400Regular'
+  },
+
+  input: {
+    height: 54,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    justifyContent: 'center',
+    paddingHorizontal: 16,
+    marginTop: 4,
+    marginBottom: 16
+  },
+
+  inputGroup: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+
+  inputBlock: {
+    width: '48%'
+  },
+
+  submitButton: {
+    backgroundColor: '#04D361',
+    height: 56,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+
+  submitButtonText: {
+    color: '#FFF',
+    fontFamily: 'Archivo_700Bold',
+    fontSize: 16
   }
 })
 
