@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, ScrollView } from 'react-native'
 
 import PageHeader from '../../components/pageHeader'
+import TeacherItem from '../../components/teacherItem'
 
 import styles from './styles'
 
@@ -10,7 +11,16 @@ const TeacherList = () => {
     <View style={styles.container}>
       <PageHeader title='Proffys disponíveis' />
       
-      <Text>Teacher List</Text>
+      <ScrollView
+        style={styles.teacherList}
+        contentContainerStyle={styles.teacherListScroll}
+      >
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+        <TeacherItem />
+      </ScrollView>
     </View>
   )
 }
