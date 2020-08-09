@@ -6,13 +6,32 @@ import { Feather } from '@expo/vector-icons'
 import PageHeader from '../../components/pageHeader'
 import TeacherItem from '../../components/teacherItem'
 
+import { getTeachers } from '../../repositories/teachers'
+import Teacher from '../../models/teacher'
+
 import styles from './styles'
 
 const TeacherList = () => {
   const [filtersVisible, setFiltersVisible] = useState(true)
+  const [weekDay, setWeekDay] = useState('')
+  const [subject, setSubject] = useState('')
+  const [time, setTime] = useState('')
+  const [teachers, setTeachers] = useState(new Array<Teacher>())
 
   const handleToggleFiltersVisible = () => {
     setFiltersVisible(!filtersVisible)
+  }
+
+  const handleFiltersSubmit = async () => {
+    const params = {
+      subject,
+      week_day: "1",
+      time
+    }
+
+    const teachers = await getTeachers(params)
+    setTeachers(teachers)
+    setFiltersVisible(false)
   }
   
   return (
@@ -31,6 +50,8 @@ const TeacherList = () => {
 
             <TextInput
               style={styles.input}
+              value={subject}
+              onChangeText={text => setSubject(text)}
               placeholder='Qual a matéria?'
               placeholderTextColor='#C1BCCC'
             />
@@ -41,6 +62,8 @@ const TeacherList = () => {
 
                 <TextInput
                   style={styles.input}
+                  value={weekDay}
+                  onChangeText={text => setWeekDay(text)}
                   placeholder='Qual dia?'
                   placeholderTextColor='#C1BCCC'
                 />
@@ -51,13 +74,15 @@ const TeacherList = () => {
 
                 <TextInput
                   style={styles.input}
+                  value={time}
+                  onChangeText={text => setTime(text)}
                   placeholder='Qual hora?'
                   placeholderTextColor='#C1BCCC'
                 />
               </View>
             </View>
 
-            <RectButton style={styles.submitButton}>
+            <RectButton style={styles.submitButton} onPress={handleFiltersSubmit}>
               <Text style={styles.submitButtonText}>Pesquisar</Text>
             </RectButton>
           </View>
@@ -68,11 +93,9 @@ const TeacherList = () => {
         style={styles.teacherList}
         contentContainerStyle={styles.teacherListScroll}
       >
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
-        <TeacherItem />
+        {teachers.map(teacher => (
+          <TeacherItem key={teacher.id} teacher={teacher} />
+        ))}
       </ScrollView>
     </View>
   )
