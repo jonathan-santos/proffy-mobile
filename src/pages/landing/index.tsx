@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { RectButton } from 'react-native-gesture-handler'
+
+import { getTotalConnections } from '../../repositories/connections'
 
 import landing from '../../assets/images/landing.png'
 import studyIcon from '../../assets/images/icons/study.png'
@@ -11,7 +13,15 @@ import heartIcon from '../../assets/images/icons/heart.png'
 import styles from './styles'
 
 const Landing = () => {
+	const [ totalConnections, setTotalConnections ] = useState(0)
 	const { navigate } = useNavigation()
+
+	useEffect(() => {
+		getTotalConnections()
+			.then(res => {
+				setTotalConnections(res)
+			})
+	}, [])
 
 	const handleNavigateToStudyTabsPage = () => {
 		navigate('StudyTabs')
@@ -50,10 +60,11 @@ const Landing = () => {
 				</RectButton>
 			</View>
 
-			<Text style={styles.totalConnections}>
-				Total de 285 conexões {'\n'}
-				já realizadas {' '} <Image source={heartIcon} />
-			</Text>
+			{totalConnections > 0 && (
+				<Text style={styles.totalConnections}>
+					Total de {totalConnections} conexões {'\n'}
+					já realizadas {' '} <Image source={heartIcon} />
+				</Text>)}
 		</View>
 	)
 }
