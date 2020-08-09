@@ -7,6 +7,7 @@ import PageHeader from '../../components/pageHeader'
 import TeacherItem from '../../components/teacherItem'
 
 import { getTeachers } from '../../repositories/teachers'
+import { getFavorites } from '../../repositories/favorites'
 import Teacher from '../../models/teacher'
 
 import styles from './styles'
@@ -16,7 +17,8 @@ const TeacherList = () => {
   const [weekDay, setWeekDay] = useState('')
   const [subject, setSubject] = useState('')
   const [time, setTime] = useState('')
-  const [teachers, setTeachers] = useState(new Array<Teacher>())
+  const [teachers, setTeachers] = useState<Teacher[]>([])
+  const [favoritesIds, setFavoritesIds] = useState<number[]>([])
 
   const handleToggleFiltersVisible = () => {
     setFiltersVisible(!filtersVisible)
@@ -32,6 +34,10 @@ const TeacherList = () => {
     const teachers = await getTeachers(params)
     setTeachers(teachers)
     setFiltersVisible(false)
+
+    const favorites = await getFavorites()
+    const favoritedTeachersIds = favorites.map((favorite: { id: any }) => favorite.id)
+    setFavoritesIds(favoritedTeachersIds)
   }
   
   return (
@@ -94,7 +100,11 @@ const TeacherList = () => {
         contentContainerStyle={styles.teacherListScroll}
       >
         {teachers.map(teacher => (
-          <TeacherItem key={teacher.id} teacher={teacher} />
+          <TeacherItem
+            key={teacher.id}
+            teacher={teacher}
+            favorited={favoritesIds.includes(teacher.id)}
+          />
         ))}
       </ScrollView>
     </View>
